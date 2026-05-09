@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100..800&family=Orbitron:wght@400..900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: #050505;
+    --background-accent: #0a0f0d;
+    --neon-green: #00ff41;
+    --neon-cyan: #00ffff;
+    --neon-red: #ff003c;
+    --text-main: #e0e0e0;
+    --text-muted: #888888;
+  }
+
+  body {
+    @apply bg-[#050505] text-[#e0e0e0] font-mono overflow-x-hidden selection:bg-cyan-500/30 selection:text-cyan-200;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Orbitron', sans-serif;
+  }
+}
+
+@layer components {
+  /* Glassmorphism cyber cards */
+  .cyber-card {
+    @apply bg-black/40 backdrop-blur-md border border-cyan-500/20 rounded-lg relative overflow-hidden transition-all duration-300;
+  }
+  
+  .cyber-card:hover {
+    @apply border-cyan-500/60 shadow-[0_0_15px_rgba(0,123,255,0.4)];
+  }
+
+  /* Glitch Text Effect */
+  .glitch {
+    position: relative;
+    color: white;
+  }
+  .glitch::before, .glitch::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent;
+  }
+  .glitch::before {
+    left: 2px;
+    text-shadow: -1px 0 red;
+    animation: glitch-anim-1 2s infinite linear alternate-reverse;
+  }
+  .glitch::after {
+    left: -2px;
+    text-shadow: -1px 0 cyan;
+    animation: glitch-anim-2 3s infinite linear alternate-reverse;
+  }
+
+  /* Neon animated button */
+  .neon-button {
+    @apply relative inline-flex items-center justify-center px-6 py-2.5 font-bold text-cyan-400 bg-transparent border border-cyan-500 uppercase tracking-widest transition-all duration-300 overflow-hidden hover:text-[#050505] hover:bg-cyan-400 hover:shadow-[0_0_20px_#00ffff];
+    font-family: 'Orbitron', sans-serif;
+  }
+  
+  /* Blinking Terminal Cursor */
+  .terminal-cursor {
+    @apply inline-block w-2.5 h-5 bg-green-500 ml-1 animate-pulse align-middle;
+  }
+
+  /* Cyber input fields */
+  .cyber-input {
+    @apply w-full bg-black/50 border border-cyan-500/30 rounded px-4 py-3 text-cyan-100 focus:outline-none focus:border-cyan-400 focus:shadow-[0_0_10px_rgba(0,255,255,0.2)] transition-all;
+  }
+}
+
+/* Animations */
+@keyframes glitch-anim-1 {
+  0% { clip-path: inset(20% 0 80% 0); }
+  20% { clip-path: inset(60% 0 10% 0); }
+  40% { clip-path: inset(40% 0 50% 0); }
+  60% { clip-path: inset(80% 0 5% 0); }
+  80% { clip-path: inset(10% 0 70% 0); }
+  100% { clip-path: inset(30% 0 20% 0); }
+}
+
+@keyframes glitch-anim-2 {
+  0% { clip-path: inset(10% 0 60% 0); }
+  20% { clip-path: inset(30% 0 20% 0); }
+  40% { clip-path: inset(70% 0 10% 0); }
+  60% { clip-path: inset(20% 0 50% 0); }
+  80% { clip-path: inset(50% 0 30% 0); }
+  100% { clip-path: inset(5% 0 80% 0); }
+}
+
+@keyframes scan-line {
+  0% { transform: translateY(-100%); }
+  100% { transform: translateY(100vh); }
+}
+.scanlines::before {
+  content: " ";
+  display: block;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  z-index: 50;
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+}
